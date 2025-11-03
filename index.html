@@ -3,760 +3,980 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MinAli Restaurant</title>
+    <title>MinAli | Restoran</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-        
+        /* Genel Stiller */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #c62828;
+            --secondary-color: #ff9800;
+            --dark-color: #333;
+            --light-color: #f4f4f4;
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #15272a;
-            font-family: "Montserrat", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
-            line-height: 1.75;
-            color: #fff;
-        }
-
-        h1, h2, h3 {
-            font-weight: 700;
-            line-height: 1.25;
-            margin: 0;
-        }
-
-        p {
-            margin: 0;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            display: block;
-            height: auto;
-            max-width: 100%;
-        }
-
-        /* Navigation */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: rgba(21, 39, 42, 0.9);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #b6d2d3;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #b6d2d3;
-        }
-
-        /* Hero Section - Original Style */
-        .hero {
-            margin-top: 80px;
-            padding: 2rem 1rem;
-        }
-
-        .content-container {
-            container-name: content-container;
-            container-type: inline-size;
-            display: grid;
-            margin-inline: auto;
-            max-inline-size: 30rem;
-            position: relative;
-        }
-
-        .media-primary,
-        .media-secondary {
-            grid-area: 1 / 1 / 2 / 2;
-        }
-
-        .media-primary {
-            aspect-ratio: 346 / 300;
-            clip-path: url(#media-clip-path-default);
-            position: relative;
-        }
-
-        .media-primary img {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-        }
-
-        .media-secondary {
-            aspect-ratio: 122 / 119;
-            background-color: #465e5f;
-            border-radius: 12px;
-            justify-self: end;
-            width: 35%;
-        }
-
-        .media-secondary svg {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-
-        .text-heading {
-            background-color: #b6d2d3;
-            border-radius: 0.75rem;
-            clip-path: url(#clip-heading);
-            font-size: 2.5rem;
-            font-weight: bold;
-            line-height: 1.15;
-            margin-block-start: 1.5rem;
-            padding: 1rem 3rem 1rem 1rem;
-            position: relative;
-            color: #15272a;
-        }
-
-        .text-body {
-            color: #fff;
-            margin-block-start: 1.5rem;
-        }
-
-        .ctas {
-            display: flex;
-            gap: 1rem;
-            margin-block-start: 1.5rem;
-        }
-
-        .cta {
-            border: 1px solid #fff;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            padding: 0.5rem 1rem;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .cta-primary {
+            line-height: 1.6;
+            color: var(--dark-color);
             background-color: #fff;
-            color: #15272a;
         }
 
-        .cta-primary:hover {
-            background-color: #b6d2d3;
-            border-color: #b6d2d3;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .cta-secondary {
-            color: #ffffff;
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            text-decoration: none;
         }
 
-        .cta-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
         }
 
-        .pseudo-corner {
-            display: none;
-        }
-
-        @container content-container (min-width: 343px) {
-            .text-heading {
-                max-inline-size: 85%;
-            }
-        }
-
-        @media screen and (min-width: 768px) {
-            .content-container {
-                max-inline-size: 75rem;
-            }
-            
-            .hero {
-                padding: 4rem 2rem;
-            }
-        }
-
-        @container content-container (min-width: 736px) {
-            .media-primary {
-                align-self: end;
-                clip-path: url(#media-clip-path-full);
-                width: 50%;
-            }
-
-            .media-secondary {
-                aspect-ratio: 240 / 220;
-                width: 20%;
-            }
-
-            .text-content {
-                grid-area: 1 / 1 / 2 / 2;
-                position: relative;
-                z-index: 2;
-                display: grid;
-                grid-template-rows: 1fr auto;
-            }
-
-            .text-heading {
-                align-items: start;
-                background-color: unset;
-                display: grid;
-                clip-path: unset;
-                font-optical-sizing: auto;
-                font-size: 7.125cqw;
-                font-weight: 700;
-                font-style: normal;
-                justify-items: start;
-                margin-block-start: 0;
-                max-inline-size: 100%;
-                padding: 0;
-            }
-
-            .pseudo-corner {
-                color: #b6d2d3;
-                height: 24px;
-                pointer-events: none;
-                position: absolute;
-                width: 24px;
-            }
-
-            .text-heading-aligned {
-                align-items: flex-start;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .span-1 {
-                border-radius: 0.75rem 0.75rem 0 0.75rem;
-            }
-
-            .span-2 {
-                align-self: end;
-                border-radius: 0 0 0 0.75rem;
-            }
-
-            .pseudo-corner {
-                display: block;
-            }
-
-            .span-2 .pseudo-corner:first-child,
-            .span-3 .pseudo-corner {
-                left: -24px;
-                top: 0;
-            }
-
-            .span-2 .pseudo-corner:last-child {
-                bottom: 0;
-                right: -24px;
-                transform: rotate(180deg);
-            }
-
-            .span-3 {
-                border-radius: 0 0.75rem 0.75rem 0.75rem;
-                justify-self: end;
-            }
-
-            .span-1,
-            .span-2,
-            .span-3 {
-                background-color: #b6d2d3;
-                padding: 0.25rem 1rem 0.75rem;
-                position: relative;
-                color: #15272a;
-            }
-
-            .text-body {
-                display: flex;
-                justify-content: flex-end;
-            }
-
-            .text-body-container {
-                padding-inline-start: 1.5rem;
-                width: 50%;
-            }
-        }
-
-        @container content-container (min-width: 736px) {
-            .text-body-container {
-                font-size: 1.9cqw;
-                padding-inline-start: 1.5rem;
-                min-height: 160px;
-                width: 48%;
-            }
-            
-            .media-primary {
-                width: 51%;
-            }
-
-            .media-secondary {
-                aspect-ratio: 260 / 240;
-                width: 20%;
-            }
-        }
-
-        @container content-container (min-width: 980px) {
-            .text-body-container {
-                padding-inline-start: 1.5rem;
-                width: 46%;
-            }
-        }
-
-        @container content-container (min-width: 1088px) {
-            .text-body-container {
-                font-size: 1.5cqw;
-                padding-inline-start: 1.5rem;
-                min-height: unset;
-                width: 45%;
-            }
-
-            .media-primary {
-                aspect-ratio: 320 / 195;
-                width: 53%;
-            }
-
-            .media-secondary {
-                aspect-ratio: 270 / 215;
-                width: 22%;
-            }
-        }
-
-        @container content-container (min-width: 1200px) {
-            .media-primary {
-                clip-path: url(#media-clip-path-full);
-                width: 45%;
-            }
-
-            .media-primary {
-                aspect-ratio: 320 / 195;
-                width: 53%;
-            }
-
-            .media-secondary {
-                aspect-ratio: 250 / 195;
-                width: 22%;
-            }
-
-            .text-body-container {
-                padding-block-start: 0;
-                padding-inline-start: 1.5rem;
-                width: 46%;
-            }
-        }
-
-        /* Animation */
-        .media-secondary {
-            display: grid;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .animated-icon {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            grid-area: 1 / 1 / 2 / 2;
-        }
-
-        .animated-icon img {
-            height: auto;
-            opacity: 0;
-            width: 80%;
-            animation: rotateImages 9s infinite cubic-bezier(0.4, 0, 0.2, 1);
-            transform-origin: center center;
-        }
-
-        .animated-icon:nth-child(1) img {
-            animation-delay: 0s;
-        }
-
-        .animated-icon:nth-child(2) img {
-            animation-delay: 3s;
-            animation-name: rotateImagesReverse;
-        }
-
-        .animated-icon:nth-child(3) img {
-            animation-delay: 6s;
-        }
-
-        @keyframes rotateImages {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) rotate(-15deg);
-            }
-            5% {
-                opacity: 1;
-                transform: scale(1.1) rotate(5deg);
-            }
-            10% {
-                transform: scale(1) rotate(0deg);
-            }
-            30% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-            33% {
-                opacity: 0;
-                transform: scale(0.8) rotate(15deg);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.8) rotate(15deg);
-            }
-        }
-
-        @keyframes rotateImagesReverse {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) rotate(15deg);
-            }
-            5% {
-                opacity: 1;
-                transform: scale(1.1) rotate(-5deg);
-            }
-            10% {
-                transform: scale(1) rotate(0deg);
-            }
-            30% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-            33% {
-                opacity: 0;
-                transform: scale(0.8) rotate(-15deg);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.8) rotate(-15deg);
-            }
-        }
-
-        /* Menu Section */
-        .menu-section {
-            padding: 4rem 1rem;
-            background-color: #1a2f33;
+        section {
+            padding: 80px 0;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #b6d2d3;
+            margin-bottom: 50px;
+            position: relative;
         }
 
-        .menu-category {
-            margin-bottom: 3rem;
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark-color);
+            margin-bottom: 15px;
         }
 
-        .category-title {
-            font-size: 1.8rem;
-            color: #b6d2d3;
-            border-bottom: 2px solid #b6d2d3;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
+        .section-title p {
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        /* Header ve Navigasyon */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Bölümü */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./img/11368086.png') no-repeat center center/cover;
             display: flex;
             align-items: center;
-            gap: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s;
+        }
+
+        .hero .btn {
+            animation: fadeIn 1.5s;
+        }
+
+        /* Hakkımızda Bölümü */
+        .about {
+            background-color: var(--light-color);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            transition: var(--transition);
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Menü Bölümü */
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--dark-color);
+        }
+
+        .category-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
         }
 
         .menu-items {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .menu-items {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .menu-items {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            background-color: #253d41;
-            border-radius: 8px;
-            transition: transform 0.3s;
-            gap: 10px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-item.hidden {
+            display: none;
         }
 
         .menu-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .item-name {
-            font-weight: 500;
-            flex-grow: 1;
-        }
-
-        .item-price {
-            color: #b6d2d3;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .item-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
+        .menu-item-img {
+            height: 200px;
             overflow: hidden;
-            flex-shrink: 0;
+            position: relative;
         }
 
-        .item-image img {
+        .menu-item-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: var(--transition);
         }
 
-        /* About Section */
-        .about-section {
-            padding: 4rem 1rem;
-            background-color: #15272a;
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.1);
         }
 
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+        .menu-item-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .menu-item-content {
+            padding: 20px;
+        }
+
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .menu-item-title h3 {
+            font-size: 20px;
+            color: var(--dark-color);
+        }
+
+        .menu-item-title span {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .menu-item-content p {
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        @media (min-width: 768px) {
-            .about-container {
-                grid-template-columns: 1fr 1fr;
-            }
+        .menu-item-rating {
+            color: #ffc107;
         }
 
-        .about-image {
-            border-radius: 12px;
-            overflow: hidden;
+        .add-to-cart {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
         }
 
-        .about-image img {
-            width: 100%;
-            height: auto;
+        .add-to-cart:hover {
+            background: var(--secondary-color);
         }
 
-        .about-content h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #b6d2d3;
+        /* Galeri Bölümü */
+        .gallery {
+            background-color: var(--light-color);
         }
 
-        /* Footer */
-        .footer {
-            padding: 3rem 1rem;
-            background-color: #0f1d1f;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .gallery-items {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        @media (min-width: 768px) {
-            .footer-content {
-                grid-template-columns: repeat(3, 1fr);
-                text-align: left;
-            }
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #b6d2d3;
-            margin-bottom: 1rem;
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
         }
 
-        .footer-contact h3,
-        .footer-hours h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: #b6d2d3;
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
 
-        .footer-bottom {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #253d41;
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .hero {
-                margin-top: 70px;
-            }
-            
-            .text-heading {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .category-title {
-                font-size: 1.5rem;
-            }
-            
-            .ctas {
-                flex-direction: column;
-            }
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
         }
 
-        @media (max-width: 480px) {
-            .navbar {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .text-heading {
-                font-size: 1.5rem;
-                padding: 0.5rem 1.5rem 0.5rem 0.5rem;
-            }
-            
-            .menu-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .item-image {
-                align-self: center;
-            }
+        .gallery-item-overlay i {
+            color: white;
+            font-size: 30px;
         }
 
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #b6d2d3;
-            color: #15272a;
-            width: 50px;
-            height: 50px;
+        /* İletişim Bölümü */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-item i {
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 999;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
         }
 
-        .back-to-top:hover {
-            background-color: #9bbbbc;
-            transform: translateY(-3px);
+        .contact-item-text h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .contact-form {
+            background: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-img, .about-text {
+                flex: none;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+            
+            .menu-categories {
+                gap: 10px;
+            }
+            
+            .category-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .about-text h3 {
+                font-size: 24px;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">MinAli Restaurant</div>
-        <div class="nav-links">
-            <a href="#home">Ana Səhifə</a>
-            <a href="#menu">Menyu</a>
-            <a href="#about">Haqqımızda</a>
-            <a href="#contact">Əlaqə</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section - Original Style -->
-    <section id="home" class="hero">
-        <div class="content-container">
-            <div class="media-primary">
-                <img alt="Ləzzətli yeməklər təqdim edən restoranımızın iç məkânı" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" />
-            </div>
-            <div class="media-secondary">
-                <figure class="animated-icon">
-                    <img alt="şorba ikonu" src="https://cdn-icons-png.flaticon.com/512/2832/2832951.png" />
-                </figure>
-                <figure class="animated-icon">
-                    <img alt="əsas yemək ikonu" src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" />
-                </figure>
-                <figure class="animated-icon">
-                    <img alt="tatlı ikonu" src="https://cdn-icons-png.flaticon.com/512/3081/3081985.png" />
-                </figure>
-            </div>
-            <div class="text-content">
-                <div>
-                    <h1 class="text-heading">
-                        <span class="text-heading-aligned">
-                            <span class="span-1" id="first-line">Ləzzətin</span>
-                            <span class="span-2">usta <svg class="pseudo-corner" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 12 12" aria-hidden="true" role="presentation">
-                                <path fill="currentColor" d="M12 12C12 5.373 6.627 0 0 0h12v12Z" />
-                            </svg><svg class="pseudo-corner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"
-                                aria-hidden="true" role="presentation">
-                                <path fill="currentColor" d="M12 12C12 5.373 6.627 0 0 0h12v12Z" />
-                            </svg></span>
-                        </span>
-                        <span class="span-3">əllərdə <svg class="pseudo-corner" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 12 12" aria-hidden="true" role="presentation">
-                            <path fill="currentColor" d="M12 12C12 5.373 6.627 0 0 0h12v12Z" />
-                        </svg></span>
-                    </h1>
+    <!-- Header ve Navigasyon -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo" style="display: flex; justify-content: center; align-items: center;">
+                    <img style="margin-right: 20px;" src="./img/Artboard 1 copy.png" height="70px" alt="MinAli Logo">
+                    MinAli Restoran
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">Ana Səhifə</a></li>
+                    <li><a href="#about">Haqqımızda</a></li>
+                    <li><a href="#menu">Menyu</a></li>
+                    <li><a href="#gallery">Qalereya</a></li>
+                    <li><a href="#contact">Əlaqə</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
                 </div>
-                <div class="text-body">
-                    <div class="text-body-container">
-                        <p>
-                            MinAli Restaurantda ənənəvi və müasir dadları bir araya gətiririk. Seçilmiş məhsullarla hazırlanan yeməklərimizlə unudulmaz bir təcrübə təqdim edirik.
-                        </p>
-                        <div class="ctas">
-                            <a class="cta cta-primary" href="#menu">Menüyə Bax</a>
-                            <a class="cta cta-secondary" href="#contact">
-                                Əlaqə
-                            </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Bölümü -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Ləzzətin Ən Gözəl Ünvanı</h1>
+                <p>Diqqətlə hazırlanmış yeməklərimiz və isti mühitimizlə sizi qarşılamaqdan məmnuniyyət duyuruq.</p>
+                <a href="#menu" class="btn">Menyunu Kəşf Edin</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hakkımızda Bölümü -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Haqqımızda</h2>
+                <p>MinAli restoran olaraq 7 ildir ən təzə məhsullarla hazırladığımız yeməklərimizlə müştərilərimizə xidmət göstəririk.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="./img/WhatsApp Image 2025-11-03 at 17.54.35.png" alt="Restoran İçi">    
+                </div>
+                <div class="about-text">
+                    <h3>7 İllik Təcrübə</h3>
+                    <p>2018-ci ildə qurulan MinAli restoran, ənənəvi və müasir ləzzətləri birləşdirərək unikal bir mətbəx təcrübəsi təqdim edir. Usta şeflərimiz, ən təzə məhsullardan istifadə edərək hər yeməkdə sizə unudulmaz bir ləzzət şousu yaşatmağı hədəfləyir.</p>
+                    <p>Restoranımız təkcə yemək yemək üçün deyil, həm də xoş vaxt keçirmək üçün ideal bir məkandır. İsti və səmimi atmosferimizdə xüsusi günlərinizi qeyd edə, iş yeməklərinizi təşkil edə və ya sevdiklərinizlə unudulmaz xatirələr yarada bilərsiniz.</p>
+                    <a href="#contact" class="btn">Rezervasiya Edin</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menü Bölümü -->
+    <section id="menu">
+        <div class="menu-container">
+            <div class="section-title">
+                <h2>Xüsusi Menyumuz</h2>
+                <p>Usta şeflərimizin diqqətlə hazırladığı bir-birindən ləzzətli yeməklərimizi kəşf edin.</p>
+            </div>
+            
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Hamısı</button>
+                <button class="category-btn" data-category="main">Əsas Yeməklər</button>
+                <button class="category-btn" data-category="drinks">İçkilər</button>
+                <button class="category-btn" data-category="salads">Salatlar</button>
+                <button class="category-btn" data-category="extras">Əlavələr</button>
+            </div>
+            
+            <div class="menu-items" id="menuItems">
+                <!-- Əsas Yeməklər -->
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Qril Köftə">
+                        <div class="menu-item-badge">Ən Çox Satılan</div>
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Xüsusi Qril Köftə</h3>
+                            <span>25 AZN</span>
+                        </div>
+                        <p>Xüsusi ədviyyatlarla marinə edilmiş mal ətindən hazırlanan ləziz köftəmiz.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1381&q=80" alt="Göbələk Souslu Pizza">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Göbələk Souslu Pizza</h3>
+                            <span>20 AZN</span>
+                        </div>
+                        <p>Xüsusi göbələk sousu, mozzarella pendiri və təzə reyhan ilə hazırlanan pizza.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80" alt="Qızılbalıq">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Sobada Qızılbalıq</h3>
+                            <span>32 AZN</span>
+                        </div>
+                        <p>Limon və şüyüd ilə marinə edilmiş, sobada bişirilmiş təzə qızılbalıq.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- İçkilər -->
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Təzə Sıxılmış Şirələr">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Təzə Sıxılmış Şirələr</h3>
+                            <span>8 AZN</span>
+                        </div>
+                        <p>Portağal, alma, nar və ya qarışıq təzə sıxılmış şirələr.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="drinks">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1572119865084-43c285814d63?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ənənəvi Çay">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Ənənəvi Çay</h3>
+                            <span>4 AZN</span>
+                        </div>
+                        <p>Yüksək keyfiyyətli Azərbaycan çayı, ənənəvi çay dəsti ilə.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Salatlar -->
+                <div class="menu-item" data-category="salads">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1384&q=80" alt="Sezar Salatı">
+                        <div class="menu-item-badge">Yeni</div>
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Sezar Salatı</h3>
+                            <span>18 AZN</span>
+                        </div>
+                        <p>Xüsusi Sezar sousu, parmezan pendiri, krutonlar və təzə göyərti ilə.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="salads">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Təzə Göbələk Salatı">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Təzə Göbələk Salatı</h3>
+                            <span>16 AZN</span>
+                        </div>
+                        <p>Təzə göbələk, qarğıdalı, pomidor və xüsusi zeytun yağlı sous ilə.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Əlavələr -->
+                <div class="menu-item" data-category="extras">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Qızardılmış Kartof">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Qızardılmış Kartof</h3>
+                            <span>7 AZN</span>
+                        </div>
+                        <p>Xüsusi ədviyyatlarla hazırlanmış qızardılmış kartof.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="extras">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80" alt="Şokoladlı Tort">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Şokoladlı Tort</h3>
+                            <span>12 AZN</span>
+                        </div>
+                        <p>Belçika şokoladı ilə hazırlanan, üzəri moruq sousu ilə bəzədilmiş ləziz tort.</p>
+                        <div class="menu-item-footer">
+                            <div class="menu-item-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <button class="add-to-cart">Səbətə Əlavə Et</button>
                         </div>
                     </div>
                 </div>
@@ -764,405 +984,244 @@
         </div>
     </section>
 
-    <!-- Menu Section -->
-    <section id="menu" class="menu-section">
-        <h2 class="section-title">Menyumuz</h2>
-        
-        <!-- Salatlar -->
-        <div class="menu-category">
-            <h3 class="category-title"><i class="fas fa-leaf"></i> Salatlar</h3>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Piti">
-                    </div>
-                    <span class="item-name">Piti</span>
-                    <span class="item-price">10 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80" alt="Yunan salatı">
-                    </div>
-                    <span class="item-name">Yunan salatı</span>
-                    <span class="item-price">7 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Çıtma salat">
-                    </div>
-                    <span class="item-name">Çıtma salat</span>
-                    <span class="item-price">6 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80" alt="Toyuq salatı">
-                    </div>
-                    <span class="item-name">Toyuq salatı</span>
-                    <span class="item-price">6 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Vişnəli Pomidor salatı">
-                    </div>
-                    <span class="item-name">Vişnəli Pomidor salatı</span>
-                    <span class="item-price">6 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80" alt="Çoban salatı">
-                    </div>
-                    <span class="item-name">Çoban salatı</span>
-                    <span class="item-price">6 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Manqal salatı">
-                    </div>
-                    <span class="item-name">Manqal salatı</span>
-                    <span class="item-price">6 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80" alt="Paytaxt salatı">
-                    </div>
-                    <span class="item-name">Paytaxt salatı</span>
-                    <span class="item-price">7 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Kök salatı">
-                    </div>
-                    <span class="item-name">Kök salatı</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
+    <!-- Galeri Bölümü -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Qalereya</h2>
+                <p>Restoranımızın atmosferini və ləzzətlərimizi qalereyamızda kəşf edin.</p>
             </div>
-        </div>
-        
-        <!-- Soyuq Yeməklər -->
-        <div class="menu-category">
-            <h3 class="category-title"><i class="fas fa-ice-cream"></i> Soyuq Yeməklər</h3>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1555939590-5aae4f23f6c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Döymə">
+            <div class="gallery-items">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Yemək 1">
+                    <div class="gallery-item-overlay">
+                        <i class="fas fa-search-plus"></i>
                     </div>
-                    <span class="item-name">Döymə</span>
-                    <span class="item-price">5 AZN</span>
                 </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1589585364608-9a84c8f32a1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Qatıq">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Yemək 2">
+                    <div class="gallery-item-overlay">
+                        <i class="fas fa-search-plus"></i>
                     </div>
-                    <span class="item-name">Qatıq</span>
-                    <span class="item-price">2 AZN</span>
                 </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Pendir">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Yemək 3">
+                    <div class="gallery-item-overlay">
+                        <i class="fas fa-search-plus"></i>
                     </div>
-                    <span class="item-name">Pendir</span>
-                    <span class="item-price">5 AZN</span>
                 </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=384&q=80" alt="Göyərti">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1564759298148-cee507ef6dc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Yemək 4">
+                    <div class="gallery-item-overlay">
+                        <i class="fas fa-search-plus"></i>
                     </div>
-                    <span class="item-name">Göyərti</span>
-                    <span class="item-price">2 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1565299585323-38174c739b6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Acika">
-                    </div>
-                    <span class="item-name">Acika</span>
-                    <span class="item-price">2 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1592415486684-3c35d4d0e7ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Pomidor xiyar">
-                    </div>
-                    <span class="item-name">Pomidor xiyar</span>
-                    <span class="item-price">3 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1603093382685-bb909518bb63?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Turşu assorti">
-                    </div>
-                    <span class="item-name">Turşu assorti</span>
-                    <span class="item-price">8 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80" alt="Pendir assorti">
-                    </div>
-                    <span class="item-name">Pendir assorti</span>
-                    <span class="item-price">8 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Sirkə soğan">
-                    </div>
-                    <span class="item-name">Sirkə soğan</span>
-                    <span class="item-price">4 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1589585364608-9a84c8f32a1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Süzmə">
-                    </div>
-                    <span class="item-name">Süzmə</span>
-                    <span class="item-price">2 AZN</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Şorbalar -->
-        <div class="menu-category">
-            <h3 class="category-title"><i class="fas fa-utensil-spoon"></i> Şorbalar</h3>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Dovğa">
-                    </div>
-                    <span class="item-name">Dovğa</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Toyuq şorbası">
-                    </div>
-                    <span class="item-name">Toyuq şorbası</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Girs">
-                    </div>
-                    <span class="item-name">Girs</span>
-                    <span class="item-price">6 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Küftəli əriştə">
-                    </div>
-                    <span class="item-name">Küftəli əriştə</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Mərci şorbası">
-                    </div>
-                    <span class="item-name">Mərci şorbası</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Tərəvəz şorbası">
-                    </div>
-                    <span class="item-name">Tərəvəz şorbası</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Pomidor şorbası">
-                    </div>
-                    <span class="item-name">Pomidor şorbası</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80" alt="Nanəli sıyıq">
-                    </div>
-                    <span class="item-name">Nanəli sıyıq</span>
-                    <span class="item-price">5 AZN</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Digər Kateqoriyalar -->
-        <div class="menu-category">
-            <h3 class="category-title"><i class="fas fa-fire"></i> Əsas Yeməklər</h3>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80" alt="Dana qovurma">
-                    </div>
-                    <span class="item-name">Dana qovurma</span>
-                    <span class="item-price">28 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80" alt="Quzu qovurma">
-                    </div>
-                    <span class="item-name">Quzu qovurma</span>
-                    <span class="item-price">30 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80" alt="Övriştə">
-                    </div>
-                    <span class="item-name">Övriştə</span>
-                    <span class="item-price">30 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80" alt="Toyuq çığırtması">
-                    </div>
-                    <span class="item-name">Toyuq çığırtması</span>
-                    <span class="item-price">30 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80" alt="Tabaka">
-                    </div>
-                    <span class="item-name">Tabaka</span>
-                    <span class="item-price">25 AZN</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- İçkilər -->
-        <div class="menu-category">
-            <h3 class="category-title"><i class="fas fa-glass-cheers"></i> İçkilər</h3>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1534353473418-4cfa6c56b4f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Cola">
-                    </div>
-                    <span class="item-name">Cola</span>
-                    <span class="item-price">3 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1534353473418-4cfa6c56b4f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Fanta">
-                    </div>
-                    <span class="item-name">Fanta</span>
-                    <span class="item-price">3 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1534353473418-4cfa6c56b4f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Sprite">
-                    </div>
-                    <span class="item-name">Sprite</span>
-                    <span class="item-price">3 AZN</span>
-                </div>
-                <div class="menu-item">
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1534353473418-4cfa6c56b4f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Ayran">
-                    </div>
-                    <span class="item-name">Ayran</span>
-                    <span class="item-price">5 AZN</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="about-container">
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Restoranımız">
+    <!-- İletişim Bölümü -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Əlaqə</h2>
+                <p>Bizimlə əlaqə saxlayın, rezervasiya edin və ya suallarınızı bildirin.</p>
             </div>
-            <div class="about-content">
-                <h2>Hekayəmiz</h2>
-                <p>2010-cu ildə qurulan Ləzzət Durağı, ənənəvi ləzzətləri müasir təqdimatlarla birləşdirməyi hədəfləyən bir ailə işletmesidir. İllər ərzində qazandığımız təcrübəni, qonaqlarımıza ən yaxşı xidməti göstərmək üçün istifadə edirik.</p>
-                <p>Baş şefimizin diqqətlə hazırladığı menyumuzda, hər damaq dadına uyğun ləzzətlər var. Təzə məhsullar və diqqətlə seçilmiş ədviyyatlarla hazırlanan yeməklərimiz, sizə unudulmaz bir təcrübə yaşatmaq üçün hazırlanıb.</p>
-                <p>İsti və səmimi mühitimizdə, ailəniz və sevdiyiniz insanlarla keyfiyyətli vaxt keçirə, xüsusi günlərinizi bizimlə qeyd edə bilərsiniz.</p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="contact-item-text">
+                            <h3>Ünvan</h3>
+                            <p>Mirzə Fətəli Axundov küçəsi<br>Şəki / Azərbaycan</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="contact-item-text">
+                            <h3>Telefon</h3>
+                            <p>+994 (50) 492 00 44</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-item-text">
+                            <h3>E-poçt</h3>
+                            <p>minaliboutiquehotel@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="contact-item-text">
+                            <h3>İş Saatları</h3>
+                            <p>Bazar ertəsi - Bazar: 08:00 - 23:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Adınız</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-poçt</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mesajınız</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Göndər</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="footer">
-        <div class="footer-content">
-            <div class="footer-info">
-                <div class="footer-logo">Ləzzət Durağı</div>
-                <p>Ənənəvi ləzzətləri müasir təqdimatlarla birləşdiririk.</p>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>MinAli Restoran</h3>
+                    <p>8 illik təcrübəmizlə ən təzə məhsullardan istifadə edərək sizə unudulmaz ləzzətlər təqdim edirik.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Sürətli Keçidlər</h3>
+                    <ul>
+                        <li><a href="#home">Ana Səhifə</a></li>
+                        <li><a href="#about">Haqqımızda</a></li>
+                        <li><a href="#menu">Menyu</a></li>
+                        <li><a href="#gallery">Qalereya</a></li>
+                        <li><a href="#contact">Əlaqə</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Əlaqə Məlumatları</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Mirzə Fətəli Axundov küçəsi, Şəki / Azərbaycan</li>
+                        <li><i class="fas fa-phone"></i> +994 (50) 492 00 44</li>
+                        <li><i class="fas fa-envelope"></i> minaliboutiquehotel@gmail.com</li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-contact">
-                <h3>Əlaqə</h3>
-                <p>Ünvan: Nümunə məhəlləsi, Ləzzət küçəsi No:123, Bakı</p>
-                <p>Telefon: (012) 345 67 89</p>
-                <p>E-poçt: info@lezzedduragi.com</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MinAli Boutique Hotel. Bütün hüquqlar qorunur.</p>
             </div>
-            <div class="footer-hours">
-                <h3>İş Saatları</h3>
-                <p>Bazar ertəsi - Cümə: 10:00 - 23:00</p>
-                <p>Şənbə - Bazar: 11:00 - 00:00</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 Ləzzət Durağı. Bütün hüquqlar qorunur.</p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </div>
-
-    <!-- SVG Definitions -->
-    <svg width="0" height="0">
-        <defs>
-            <clipPath id="clip-heading" clipPathUnits="objectBoundingBox">
-                <path
-                    d="
-                    M0.044,0 H0.852 A0.037,0.05 0,0,1 0.889,0.05 V0.25 A0.037,0.05 0,0,0 0.926,0.30 H0.963 A0.037,0.05 0,0,1 1.000,0.35 V0.70 A0.037,0.05 0,0,1 0.963,0.75 H0.926 A0.037,0.05 0,0,0 0.889,0.80 V0.95 A0.037,0.05 0,0,1 0.852,1 H0.044 A0.044,0.06 0,0,1 0,0.94 V0.06 A0.044,0.06 0,0,1 0.044,0 Z" />
-            </clipPath>
-        </defs>
-    </svg>
-    <svg width="0" height="0">
-        <defs>
-            <clipPath id="media-clip-path-default" clipPathUnits="objectBoundingBox">
-                <path
-                    d=" M0.035,0 H0.555 A0.035,0.035 0,0,1 0.59,0.04 V0.423 A0.035,0.035 0,0,0 0.625,0.463 H0.965 A0.035,0.035 0,0,1 1.000,0.503 V0.96 A0.035,0.035 0,0,1 0.965,1 H0.035 A0.035,0.035 0,0,1 0,0.96 V0.04 A0.035,0.035 0,0,1 0.035,0 Z" />
-            </clipPath>
-        </defs>
-    </svg>
-    <svg width="0" height="0">
-        <defs>
-            <clipPath id="media-clip-path-full" clipPathUnits="objectBoundingBox">
-                <path
-                    d="M0.0188,0 H0.5203 A0.0188,0.0308 0,0,1 0.5391,0.0308 V0.2769 A0.0188,0.0308 0,0,0 0.5578,0.3077 H0.9813 A0.0188,0.0308 0,0,1 1,0.3385 V0.9692 A0.0188,0.0308 0,0,1 0.9813,1 H0.0188 A0.0188,0.0308 0,0,1 0,0.9692 V0.0308 A0.0188,0.0308 0,0,1 0.0188,0 Z" />
-            </clipPath>
-        </defs>
-    </svg>
-
     <script>
-        // Smooth scrolling for navigation links
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+        // Header scroll efekti
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-            // Back to top button
-            const backToTopButton = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTopButton.style.display = 'flex';
-                } else {
-                    backToTopButton.style.display = 'none';
+        // Mobil menü toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Menü linklerine tıklandığında mobil menüyü kapat
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Form gönderimi
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mesajınız uğurla göndərildi! Ən qısa zamanda sizinlə əlaqə saxlayacağıq.');
+            this.reset();
+        });
+
+        // Yumuşak scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 }
             });
-            
-            backToTopButton.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+        });
+
+        // Kateqoriya düymələrinə klik hadisəsi
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Aktiv düyməni dəyişdir
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
                 });
+                this.classList.add('active');
+                
+                // Kateqoriya filtrini tətbiq et
+                const category = this.getAttribute('data-category');
+                filterMenuItems(category);
+            });
+        });
+
+        // Menyü elementlərini filtrlə
+        function filterMenuItems(category) {
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                
+                if (category === 'all' || category === itemCategory) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // Səbətə əlavə et düyməsinə klik hadisəsi
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const itemName = this.closest('.menu-item').querySelector('h3').textContent;
+                const itemPrice = this.closest('.menu-item').querySelector('.menu-item-title span').textContent;
+                
+                // Əlavə edildi mesajı göstər
+                const originalText = this.textContent;
+                this.textContent = 'Əlavə edildi!';
+                this.style.background = '#4caf50';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = '';
+                }, 2000);
+                
+                // Burada səbət məntiqini tətbiq edə bilərsiniz
+                console.log(`${itemName} - ${itemPrice} səbətə əlavə edildi`);
             });
         });
     </script>
